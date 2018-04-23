@@ -26,16 +26,24 @@ pipeline {
             }
         }
 
+		stage ('') {
+			steps {
+			    sh 'mvn verify'
+			}
+		          
+		}
+
+
         stage ('Build') {
             steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true install' 
+                sh 'mvn install' 
             }
         }
 
         stage ('Delivery') {
             steps {
-		sh '''
-                        echo "Dejando JAR"
+				sh '''
+                	echo "Dejando JAR"
                 '''
             }
         }
