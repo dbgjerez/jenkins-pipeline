@@ -28,9 +28,21 @@ pipeline {
 
 		stage ('Tests') {
 			steps {
-			    sh 'mvn verify'
+				echo "Unit test"
+			    sh 'mvn clean verify'
 			}
-		          
+			
+			steps {
+				echo "Integration tests"
+			}
+			
+			steps {
+				echo "Acceptance tests"
+			}
+			
+			steps {
+				echo "SonarQube analysis"
+			}     
 		}
 
         stage ('Build') {
