@@ -17,7 +17,7 @@ import com.vaadin.ui.VerticalLayout;
 @SpringUI
 public class AppUI extends UI {
 
-	private static final NativeSelect<String> SELECT = new NativeSelect<>("", Arrays.asList("de", "en"));
+	private static final NativeSelect<String> SELECT = new NativeSelect<>();
 	private static final TextField T_FIELD = new TextField();
 
 	private static final long serialVersionUID = 8283544339996644259L;
@@ -29,6 +29,8 @@ public class AppUI extends UI {
 	protected void init(VaadinRequest request) {
 		final VerticalLayout vLayout = new VerticalLayout();
 		final HorizontalLayout hLayout = new HorizontalLayout();
+		SELECT.setItems(Arrays.asList("de", "en"));
+		SELECT.setSelectedItem("1");
 		hLayout.addComponent(SELECT);
 		hLayout.addComponent(T_FIELD);
 		final Button btn = new Button("Traducir");
