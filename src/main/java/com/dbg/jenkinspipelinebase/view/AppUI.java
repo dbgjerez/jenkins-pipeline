@@ -23,7 +23,7 @@ public class AppUI extends UI {
 	protected void init(VaadinRequest request) {
 		final VerticalLayout vLayout = new VerticalLayout();
 		final HorizontalLayout hLayout = new HorizontalLayout();
-		final TextField tField = new TextField("Texto");
+		final TextField tField = new TextField();
 		hLayout.addComponent(tField);
 		final Button btn = new Button("Traducir");
 		hLayout.addComponent(btn);
