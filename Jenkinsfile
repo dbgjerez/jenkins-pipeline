@@ -42,9 +42,7 @@ pipeline {
 
         stage ('Delivery') {
             steps {
-				sh '''
-                	echo "Dejando JAR"
-                '''
+				sh 'scp target/*.jar $APP_USER@$APP_HOST:$APP_HOME'
             }
         }
 
