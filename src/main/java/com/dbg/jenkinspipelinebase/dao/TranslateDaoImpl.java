@@ -20,7 +20,8 @@ public class TranslateDaoImpl implements TranslateDao, InitializingBean {
 	private static final String HALLO_WELT = "Hallo Welt";
 	private static final String HELLO_WORLD = "hello world";
 	private static final String HOLA_MUNDO = "hola mundo";
-	private Map<String, Map<String, String>> bbdd;
+	
+	private Map<String, Map<String, String>> bbdd = new HashMap<>();
 
 	@Override
 	public TranslationDTO translate(TranslationRequestDTO rq) {
