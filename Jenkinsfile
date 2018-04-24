@@ -46,31 +46,15 @@ pipeline {
 			}
 		}
 
-        stage ('Build') {
-            steps {
-                sh 'mvn package -DskipTests=true' 
-            }
-        }
-
 		stage ('SonarQube') {
             steps {
 				echo "SonarQube analysis"
             }
         }
 
-        stage ('Delivery') {
+        stage ('Build') {
             steps {
-				sh "scp target/*.jar $APP_USER@$APP_HOST:$APP_HOME/${artifactId}.jar"
-            }
-        }
-
-        stage ('Deploy') {
-            steps {
-                ansiblePlaybook colorized: true, 
-                	installation: 'ansible', 
-            		inventory: '$ANSIBLE_HOME/inventories/dev.ini', 
-            		playbook: '$ANSIBLE_HOME/main.yml', 
-            		extras: '-e group_id=$groupId -e artifact_id=$artifactId -e artifact_version=$version'
+                sh 'mvn package -DskipTests=true' 
             }
         }
         
