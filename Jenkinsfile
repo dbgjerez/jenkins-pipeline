@@ -27,23 +27,24 @@ pipeline {
         }
 
 		stage ('Tests') {
-			steps {
-				echo "Unit test"
-			    sh 'mvn clean verify'
+			parallel {
+				stage ('Unit') {
+			    	sh 'mvn clean verify'
+				}   
+				stage ('Integration') {
+					echo "Integration tests"
+				}
+				stage ('Acceptance') {
+					echo "Acceptance tests"
+				}
 			}
-			
-			steps {
-				echo "Integration tests"
-			}
-			
-			steps {
-				echo "Acceptance tests"
-			}
-			
-			steps {
-				echo "SonarQube analysis"
-			}     
 		}
+
+		stage ('SonarQube') {
+            steps {
+				echo "SonarQube analysis"
+            }
+        }
 
         stage ('Build') {
             steps {
