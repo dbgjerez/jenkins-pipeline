@@ -40,15 +40,15 @@ pipeline {
 			}
 		}
 
-		stage ('SonarQube') {
-            steps {
-				echo "SonarQube analysis"
-            }
-        }
-
         stage ('Build') {
             steps {
                 sh 'mvn package -DskipTests=true' 
+            }
+        }
+
+		stage ('SonarQube') {
+            steps {
+				echo "SonarQube analysis"
             }
         }
 
