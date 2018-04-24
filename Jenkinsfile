@@ -41,7 +41,7 @@ pipeline {
 
         stage ('Delivery') {
             steps {
-				sh "scp target/*.jar $APP_USER@$APP_HOST:$APP_HOME/"+$artifactId+".jar"
+				sh "scp target/*.jar $APP_USER@$APP_HOST:$APP_HOME/$artifactId.toString().jar"
             }
         }
 
