@@ -57,6 +57,12 @@ pipeline {
                 sh 'mvn package -DskipTests=true' 
             }
         }
+
+        stage ('Delivery') {
+            steps {
+				sh "scp target/*.jar $APP_USER@$APP_HOST:$APP_HOME/${artifactId}.jar"
+            }
+        }
         
     }
     
