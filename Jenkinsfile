@@ -29,13 +29,19 @@ pipeline {
 		stage ('Tests') {
 			parallel {
 				stage ('Unit') {
-			    	sh 'mvn clean verify'
+					steps {
+				    	sh 'mvn clean verify'   
+					}
 				}   
 				stage ('Integration') {
-					echo "Integration tests"
+					steps {
+						echo "Integration tests"
+					}
 				}
 				stage ('Acceptance') {
-					echo "Acceptance tests"
+					steps {
+						echo "Acceptance tests"
+					}
 				}
 			}
 		}
