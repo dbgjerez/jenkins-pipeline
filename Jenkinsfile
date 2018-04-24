@@ -47,7 +47,11 @@ pipeline {
 
         stage ('Deploy') {
             steps {
-                sh 'ansible-playbook -i $ANSIBLE_HOME/inventories/dev.ini $ANSIBLE_HOME/main.yml'
+                ansiblePlaybook colorized: true, 
+                	installation: 'ansible', 
+            		inventory: '$ANSIBLE_HOME/inventories/dev.ini', 
+            		playbook: '$ANSIBLE_HOME/main.yml', 
+            		extras: '-e group_id=$groupId -e artifact_id=$artifactId -e artifact_version=$version'
             }
         }
         
