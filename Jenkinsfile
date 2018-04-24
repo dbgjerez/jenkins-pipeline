@@ -47,9 +47,7 @@ pipeline {
 
         stage ('Deploy') {
             steps {
-                sh '''
-                	echo "Desplegando en el Server"
-                '''
+                sh 'ansible-playbook -i $ANSIBLE_HOME/inventories/dev.ini $ANSIBLE_HOME/main.yml'
             }
         }
         
