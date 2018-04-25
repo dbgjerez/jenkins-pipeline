@@ -26,28 +26,61 @@ pipeline {
             }
         }
 
+		stage ('Tests') {
+			parallel {
+				stage ('Unit') {
+					steps {
+				    	sh 'mvn clean verify'   
+					}
+				}   
+				stage ('Integration') {
+					steps {
+						echo "Integration tests"
+					}
+				}
+				stage ('Acceptance') {
+					steps {
+						echo "Acceptance tests"
+					}
+				}
+			}
+		}
+
+		stage ('SonarQube') {
+            steps {
+				echo "SonarQube analysis"
+            }
+        }
+
         stage ('Build') {
             steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true install' 
+                sh 'mvn package -DskipTests=true' 
             }
         }
 
         stage ('Delivery') {
             steps {
-		sh '''
-                        echo "Dejando JAR"
-                '''
+				sh "scp target/*.jar $APP_USER@$APP_HOST:$APP_HOME/${artifactId}.jar"
             }
         }
 
         stage ('Deploy') {
             steps {
-                sh '''
-                	echo "Desplegando en el Server"
-                '''
+                ansiblePlaybook colorized: true, 
+                	installation: 'ansible', 
+            		inventory: '$ANSIBLE_HOME/inventories/dev.ini', 
+            		playbook: '$ANSIBLE_HOME/main.yml', 
+            		extras: '-e group_id=$groupId -e artifact_id=$artifactId -e artifact_version=$version'
             }
         }
         
+    }
+    
+    post {
+        always {
+            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+           	junit 'target/surefire-reports/*.xml'
+        }
     }
 
 }
