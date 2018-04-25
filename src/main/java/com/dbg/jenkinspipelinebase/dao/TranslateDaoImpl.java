@@ -6,9 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Repository;
 
-import com.dbg.jenkinspipelinebase.dto.TranslationDTO;
-import com.dbg.jenkinspipelinebase.dto.TranslationRequestDTO;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -20,13 +17,12 @@ public class TranslateDaoImpl implements TranslateDao, InitializingBean {
 	private static final String HALLO_WELT = "Hallo Welt";
 	private static final String HELLO_WORLD = "hello world";
 	private static final String HOLA_MUNDO = "hola mundo";
-	
+
 	private Map<String, Map<String, String>> bbdd = new HashMap<>();
 
 	@Override
-	public TranslationDTO translate(TranslationRequestDTO rq) {
-		final String translation = bbdd.get(rq.getLanguage()).get(rq.getText());
-		return TranslationDTO.builder().language(rq.getLanguage()).text(translation).build();
+	public String translate(String language, String text) {
+		return bbdd.get(language).get(text);
 	}
 
 	@Override

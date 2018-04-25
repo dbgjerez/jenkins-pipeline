@@ -4,9 +4,9 @@ import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.dbg.jenkinspipelinebase.dao.TranslateDao;
 import com.dbg.jenkinspipelinebase.dto.TranslationDTO;
 import com.dbg.jenkinspipelinebase.dto.TranslationRequestDTO;
+import com.dbg.jenkinspipelinebase.service.TranslateService;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Button;
@@ -26,7 +26,7 @@ public class AppUI extends UI {
 	private static final long serialVersionUID = 8283544339996644259L;
 
 	@Autowired
-	TranslateDao dao;
+	TranslateService service;
 
 	@Override
 	protected void init(VaadinRequest request) {
@@ -41,7 +41,7 @@ public class AppUI extends UI {
 		btn.addClickListener(e -> {
 			final TranslationRequestDTO rq = TranslationRequestDTO.builder().language(SELECT.getValue())
 					.text(T_FIELD.getValue()).build();
-			final TranslationDTO translate = dao.translate(rq);
+			final TranslationDTO translate = service.translate(rq);
 			TRANSLATION.setValue(translate.getText());
 		});
 

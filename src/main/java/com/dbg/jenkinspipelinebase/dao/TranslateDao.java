@@ -1,10 +1,15 @@
 package com.dbg.jenkinspipelinebase.dao;
 
-import com.dbg.jenkinspipelinebase.dto.TranslationDTO;
-import com.dbg.jenkinspipelinebase.dto.TranslationRequestDTO;
-
 public interface TranslateDao {
 
-	TranslationDTO translate(TranslationRequestDTO rq);
+	/**
+	 * Recibe en lowercase un texto a traducir
+	 * 
+	 * @param language
+	 *            idioma en el que traducir (en, de)
+	 * @param text
+	 * @return
+	 */
+	String translate(String language, String text);
 
 }
